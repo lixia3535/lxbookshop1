@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.test.po.Order" table="orders" schema="bookshop">
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <property name="ordernum">
+            <column name="ordernum" sql-type="varchar(20)" length="20" not-null="true"/>
+        </property>
+        <property name="totalPrice">
+            <column name="totalPrice" sql-type="decimal(10,2)" precision="10" scale="2" not-null="true"/>
+        </property>
+        <property name="orderState">
+            <column name="orderState" sql-type="varchar(10)" length="10" not-null="true"/>
+        </property>
+        <property name="orderTime">
+            <column name="orderTime" sql-type="timestamp" not-null="true"/>
+        </property>
+        <!--多对一，多的一边，一个订单对应一个地址-->
+        <many-to-one name="address" class="com.test.po.Address" cascade="save-update">
+            <column name="addressId"/>
+        </many-to-one>
+
+        <many-to-one name="customer" class="com.test.po.Customer" cascade="save-update">
+            <column name="customerId"/>
+        </many-to-one>
+
+        <!--一个订单对应多个订单详情-->
+        <set name="orderdetails" inverse="true" cascade="delete-orphan">
+            <key>
+                <column name="orderId"/>
+            </key>
+            <one-to-many class="com.test.po.Orderdetail"/>
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.test.po.Book" table="books" schema="bookshop">
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <property name="name">
+            <column name="name" sql-type="varchar(20)" length="20" not-null="true"/>
+        </property>
+        <property name="isbn">
+            <column name="isbn" sql-type="varchar(15)" length="15" not-null="true"/>
+        </property>
+        <property name="price">
+            <column name="price" sql-type="decimal(10,2)" precision="10" scale="2" not-null="true"/>
+        </property>
+        <property name="cover">
+            <column name="cover" sql-type="varchar(20)" length="20" not-null="true"/>
+        </property>
+        <property name="sellnum">
+            <column name="sellnum" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="discount">
+            <column name="discount" sql-type="double" precision="-1" not-null="true"/>
+        </property>
+        <!--一本书对应多个购物车-->
+        <set name="carts" cascade="delete-orphan" inverse="true">
+            <key>
+                <column name="bookId"/>
+            </key>
+            <one-to-many class="com.test.po.Cart"/>
+        </set>
+
+        <!--一本书对应多个订单详情，一对多一的一边-->
+       <set name="orderdetails"  inverse="true" cascade="delete-orphan">
+           <key>
+               <column name="bookId"/>
+           </key>
+           <one-to-many class="com.test.po.Orderdetail"/>
+       </set>
+
+        <!--一本书对应一个出版社-->
+        <many-to-one name="press" class="com.test.po.Press" cascade="save-update">
+            <column name="pressId"/>
+        </many-to-one>
+        <set name="authors" cascade="save-update" table="authorandbook">
+            <key>
+                <column name="isbn"/>
+            </key>
+            <many-to-many column="authorId" class="com.test.po.Author"/>
+        </set>
+        <set name="categories" table="bookandcategory" cascade="save-update">
+            <key>
+                <column name="bookId"/>
+            </key>
+            <many-to-many column="categoryId" class="com.test.po.Category"/>
+        </set>
+    </class>
+</hibernate-mapping>

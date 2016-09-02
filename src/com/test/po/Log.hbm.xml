@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.test.po.Log" table="logs" schema="bookshop">
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <property name="usn">
+            <column name="usn" sql-type="varchar(20)" length="20" not-null="true"/>
+        </property>
+        <property name="ipAddress">
+            <column name="ipAddress" sql-type="varchar(15)" length="15" not-null="true"/>
+        </property>
+        <property name="operateTime">
+            <column name="operateTime" sql-type="timestamp"/>
+        </property>
+        <property name="operateType">
+            <column name="operateType" sql-type="varchar(255)" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

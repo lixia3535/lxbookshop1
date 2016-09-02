@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.test.po.Customer" table="customers" schema="bookshop">
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <property name="name">
+            <column name="name" sql-type="varchar(20)" length="20" not-null="true"/>
+        </property>
+        <property name="pwd">
+            <column name="pwd" sql-type="varchar(20)" length="20" not-null="true"/>
+        </property>
+        <!--一对一所谓主表-->
+        <one-to-one name="customerdetail" property-ref="customer"/>
+        <!--一个用户对应多个地址-->
+        <set name="addresses" inverse="true" cascade="delete-orphan">
+            <key>
+            <column name="customerId"/>
+            </key>
+            <one-to-many class="com.test.po.Address"/>
+        </set>
+        <!--一个用户对应多个订单-->
+        <set name="orders" cascade="delete-orphan" inverse="true">
+            <key>
+                <column name="customerId"/>
+            </key>
+            <one-to-many class="com.test.po.Order"/>
+        </set>
+        <!--一个用户有多个购物车-->
+        <set name="carts" inverse="true" cascade="delete-orphan">
+            <key>
+                <column name="customerId"/>
+            </key>
+            <one-to-many class="com.test.po.Cart"/>
+        </set>
+    </class>
+</hibernate-mapping>

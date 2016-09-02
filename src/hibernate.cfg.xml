@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:mysql://localhost:3307/bookshop</property>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.username" >root</property>
+        <property name="connection.password">root</property>
+        <!--创建数据库连接池-->
+        <property name="hibernate.connection.provider_class">
+            org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider
+        </property>
+        <property name="c3p0.min_size">5</property>
+        <property name="c3p0.max_size">20</property>
+        <property name="c3p0.acquire_increment">5</property>
+        <property name="c3p0.idle_test_period">120</property>
+        <property name="c3p0.max_statements">10</property>
+        <property name="c3p0.timeout">120</property>
+        <!--加入方言，即指定数据库的类型-->
+        <property name="dialect">
+            org.hibernate.dialect.MySQLDialect
+        </property>
+        <mapping resource="com/test/po/Address.hbm.xml"/>
+        <mapping resource="com/test/po/Administrator.hbm.xml"/>
+        <mapping resource="com/test/po/Author.hbm.xml"/>
+        <mapping resource="com/test/po/Book.hbm.xml"/>
+        <mapping resource="com/test/po/Cart.hbm.xml"/>
+        <mapping resource="com/test/po/Category.hbm.xml"/>
+        <mapping resource="com/test/po/Customerdetail.hbm.xml"/>
+        <mapping resource="com/test/po/Customer.hbm.xml"/>
+        <mapping resource="com/test/po/Log.hbm.xml"/>
+        <mapping resource="com/test/po/Orderdetail.hbm.xml"/>
+        <mapping resource="com/test/po/Order.hbm.xml"/>
+        <mapping resource="com/test/po/Passport.hbm.xml"/>
+        <mapping resource="com/test/po/Press.hbm.xml"/>
+        <!-- DB schema will be updated if needed -->
+        <!-- <property name="hbm2ddl.auto">update</property> -->
+    </session-factory>
+</hibernate-configuration>

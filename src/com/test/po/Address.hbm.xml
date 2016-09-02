@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.test.po.Address" table="addresses" schema="bookshop">
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <property name="address">
+            <column name="address" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <property name="zipecode">
+            <column name="zipecode" sql-type="char(6)" length="6" not-null="true"/>
+        </property>
+        <property name="cellnum">
+            <column name="cellnum" sql-type="varchar(20)" length="20" not-null="true"/>
+        </property>
+        <!--一个地址对应一个用户，这是多的一遍-->
+        <many-to-one name="customer" class="com.test.po.Customer" cascade="save-update">
+            <column name="customerId"/>
+        </many-to-one>
+        <!--一个地址对应多个订单-->
+        <set name="orders" inverse="true" cascade="delete-orphan">
+            <key>
+                <column name="addressId"/>
+            </key>
+            <one-to-many class="com.test.po.Order"/>
+        </set>
+    </class>
+</hibernate-mapping>

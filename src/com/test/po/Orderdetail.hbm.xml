@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.test.po.Orderdetail" table="orderdetailses" schema="bookshop">
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <property name="price">
+            <column name="price" sql-type="decimal(10,2)" precision="10" scale="2" not-null="true"/>
+        </property>
+        <property name="num">
+            <column name="num" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="subPrice">
+            <column name="subPrice" sql-type="decimal(10,2)" precision="10" scale="2" not-null="true"/>
+        </property>
+        <!--一个订单详情对应一个订单=====多的一遍-->
+        <many-to-one name="order" class="com.test.po.Order" cascade="save-update">
+            <column name="orderId"/>
+        </many-to-one>
+
+        <!--一个订单详情对应一本书，一对多多的一边-->
+        <many-to-one name="book" cascade="save-update">
+            <column name="bookId"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

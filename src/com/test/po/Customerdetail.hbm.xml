@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.test.po.Customerdetail" table="customerdetailses" schema="bookshop">
+        <id name="id">
+            <column name="id" sql-type="int(11)"/>
+        </id>
+        <property name="name">
+            <column name="name" sql-type="varchar(20)" length="20" not-null="true"/>
+        </property>
+        <property name="pwd">
+            <column name="pwd" sql-type="varchar(20)" length="20" not-null="true"/>
+        </property>
+        <property name="gender">
+            <column name="gender" sql-type="varchar(8)" length="8" not-null="true"/>
+        </property>
+        <property name="birthday">
+            <column name="birthday" sql-type="date" not-null="true"/>
+        </property>
+        <property name="age">
+            <column name="age" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="salary">
+            <column name="salary" sql-type="decimal(10)" precision="10" not-null="true"/>
+        </property>
+        <property name="tel">
+            <column name="tel" sql-type="varchar(18)" length="18" not-null="true"/>
+        </property>
+        <property name="email">
+            <column name="email" sql-type="varchar(20)" length="20" not-null="true"/>
+        </property>
+        <property name="habits">
+            <column name="habits" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <!--一对一所谓主表  用户详情对护照-->
+        <one-to-one name="passport" property-ref="customerdetail"/>
+        <!--一对一的用户详情是所谓的从表-->
+        <one-to-one name="customer" foreign-key="id"/>
+
+    </class>
+</hibernate-mapping>
