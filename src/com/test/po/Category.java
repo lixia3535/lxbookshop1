@@ -12,6 +12,35 @@ public class Category {
     //一本书属于多个种类
     //一个种类包含多本书
     private Set<Book> books=new HashSet<Book>();
+    private Set<Category> children=new HashSet<Category>();
+    private Category parents;
+
+    public Set<Category> getChildren() {
+        return children;
+    }
+
+    public void setChildren(Set<Category> children) {
+        this.children = children;
+    }
+
+    public Category getParents() {
+        return parents;
+    }
+
+    public void setParents(Category parents) {
+        this.parents = parents;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", books=" + books +
+                ", children=" + children.size() +
+
+                '}';
+    }
 
     public Set<Book> getBooks() {
         return books;

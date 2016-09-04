@@ -18,5 +18,14 @@
             </key>
             <many-to-many class="com.test.po.Book" column="bookId"/>
         </set>
+        <set name="children">
+            <key>
+                <column name="parentId"/>
+            </key>
+            <one-to-many class="com.test.po.Category"/>
+        </set>
+        <many-to-one name="parents" class="com.test.po.Category">
+            <column name="parentId"/>
+        </many-to-one>
     </class>
 </hibernate-mapping>

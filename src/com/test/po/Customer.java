@@ -81,6 +81,19 @@ public class Customer {
     }
 
     @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", customerdetail=" + customerdetail.getName() +
+                ", addresses=" + addresses.size() +
+                ", orders=" + orders.size() +
+                ", carts=" + carts.size() +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
